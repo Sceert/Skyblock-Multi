@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:cobblestone",
+    "minecraft:dirt",
+    "minecraft:cobblestone",
+    "minecraft:dirt",
+    "minecraft:water_bucket",
+    "minecraft:dirt",
+    "minecraft:cobblestone",
+    "minecraft:dirt",
+    "minecraft:cobblestone"
+  ],
+  "result": {
+    "id": "minecraft:gravel",
+    "count": 8
+  }
+}

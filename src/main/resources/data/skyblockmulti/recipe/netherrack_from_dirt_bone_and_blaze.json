@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:dirt",
+    "minecraft:dirt",
+    "minecraft:dirt",
+    "minecraft:bone",
+    "minecraft:blaze_powder",
+    "minecraft:bone",
+    "minecraft:dirt",
+    "minecraft:dirt",
+    "minecraft:dirt"
+  ],
+  "result": {
+    "id": "minecraft:netherrack",
+    "count": 9
+  }
+}

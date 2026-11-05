@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:diamond_axe",
+    "#minecraft:saplings",
+    "#minecraft:saplings",
+    "#minecraft:saplings",
+    "#minecraft:saplings"
+  ],
+  "result": {
+    "id": "skyblockmulti:offering_trees",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {"translate": "skyblockmulti.offering.trees", "color": "dark_green", "italic": false},
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

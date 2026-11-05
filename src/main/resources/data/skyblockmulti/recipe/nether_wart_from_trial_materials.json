@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:red_mushroom",
+    "minecraft:soul_sand",
+    "minecraft:red_mushroom",
+    "minecraft:soul_sand",
+    "minecraft:blaze_powder",
+    "minecraft:soul_sand",
+    "minecraft:red_mushroom",
+    "minecraft:soul_sand",
+    "minecraft:red_mushroom"
+  ],
+  "result": {
+    "id": "minecraft:nether_wart",
+    "count": 9
+  }
+}

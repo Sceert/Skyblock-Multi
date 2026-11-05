@@ -1,32 +1,46 @@
 {
   "schemaVersion": 1,
   "id": "skyblockmulti",
-  "version": "0.1.1-beta",
-  "name": "SkyblockMulti",
-  "description": "Configurable multiplayer Skyblock for Minecraft 26.2 with island allocation, difficulty selection, progression, custom recipes and optional Mod Menu support.",
+  "version": "${version}",
+  "name": "Skyblock Multi",
+  "description": "Configurable multiplayer Skyblock for Minecraft 26.3 with island allocation, difficulty selection, progression, custom recipes and optional Mod Menu support.",
   "authors": [
     "Treecs"
   ],
-  "license": "All Rights Reserved",
+  "license": "MIT",
   "environment": "*",
   "icon": "assets/skyblockmulti/icon.png",
   "entrypoints": {
     "main": [
       "cl.treecs.skyblockmulti.SkyblockMultiMod",
-      "cl.treecs.skyblockmulti.SkyblockDebugOverlay"
+      "cl.treecs.skyblockmulti.SkyblockDebugOverlay",
+      "cl.treecs.skyblockmulti.region.LogicalRegionService",
+      "cl.treecs.skyblockmulti.NexusFoundation",
+      "cl.treecs.skyblockmulti.VersionJoinMessage",
+      "cl.treecs.skyblockmulti.RequiredClientMod",
+      "cl.treecs.skyblockmulti.PlayerReconnectHandler"
+    ],
+    "client": [
+      "cl.treecs.skyblockmulti.client.RequiredClientModClient"
     ],
     "modmenu": [
       "cl.treecs.skyblockmulti.client.SkyblockMultiModMenu"
     ]
   },
+  "mixins": [
+    "skyblockmulti.mixins.json"
+  ],
   "depends": {
-    "fabricloader": ">=0.19.3",
-    "minecraft": "26.2",
-    "fabric-api": "*"
+    "fabricloader": ">=0.20.1",
+    "minecraft": "26.3",
+    "fabric-api": "*",
+    "cloth-config": ">=26.3.159"
   },
   "suggests": {
     "modmenu": "*",
-    "openpartiesandclaims": "*"
+    "nexus_parties": ">=0.1.0-alpha.7",
+    "openpartiesandclaims": "*",
+    "jei": "*"
   },
   "custom": {
     "modmenu": {

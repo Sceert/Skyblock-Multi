@@ -1,3 +1,0 @@
-# Crónica oficial del mundo. custom_data permite distinguirla de cualquier libro creado por el jugador.
-give @s minecraft:written_book[minecraft:written_book_content={title:{raw:'SkyblockMulti'},author:'SkyblockMulti',generation:0,resolved:true,pages:[{raw:{translate:'skyblockmulti.lore_book.page.1'}},{raw:{translate:'skyblockmulti.lore_book.page.2'}},{raw:{translate:'skyblockmulti.lore_book.page.3'}},{raw:{translate:'skyblockmulti.lore_book.page.4'}},{raw:{translate:'skyblockmulti.lore_book.page.5'}}]},minecraft:custom_data={skyblockmulti_lore_book:1b}] 1
-tellraw @s [{"text":"[SkyblockMulti] ","color":"aqua","bold":true},{"translate":"skyblockmulti.lore_book.received","color":"gold"}]

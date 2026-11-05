@@ -1,1 +1,0 @@
-function skyblock:hub/build

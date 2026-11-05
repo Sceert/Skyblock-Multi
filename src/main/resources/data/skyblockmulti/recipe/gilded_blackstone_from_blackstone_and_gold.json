@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:blackstone",
+    "minecraft:blackstone",
+    "minecraft:blackstone",
+    "minecraft:blackstone",
+    "minecraft:gold_ingot",
+    "minecraft:blackstone",
+    "minecraft:blackstone",
+    "minecraft:blackstone",
+    "minecraft:blackstone"
+  ],
+  "result": {
+    "id": "minecraft:gilded_blackstone",
+    "count": 9
+  }
+}

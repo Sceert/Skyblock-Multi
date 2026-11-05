@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:orange_dye",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone"
+  ],
+  "result": {
+    "id": "minecraft:ochre_froglight",
+    "count": 9
+  }
+}

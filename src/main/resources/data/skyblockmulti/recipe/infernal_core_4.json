@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": ["minecraft:obsidian", "minecraft:obsidian", "minecraft:obsidian", "skyblockmulti:lava_catalyst", "skyblockmulti:lava_catalyst", "skyblockmulti:lava_catalyst", "skyblockmulti:lava_catalyst"],
+  "result": {"id": "skyblockmulti:infernal_core_4", "count": 1}
+}

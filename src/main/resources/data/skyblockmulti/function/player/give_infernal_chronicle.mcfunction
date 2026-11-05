@@ -1,0 +1,4 @@
+# Crónica infernal entregada una sola vez al entrar al Nether.
+give @s minecraft:written_book[minecraft:custom_name={translate:'skyblockmulti.infernal_book.title',color:'dark_red',italic:false},minecraft:written_book_content={title:{raw:'Chronicle of the Bound Flame'},author:'The Nexus Chronicler',generation:0,resolved:true,pages:[{raw:{translate:'skyblockmulti.infernal_book.page.1'}},{raw:{translate:'skyblockmulti.infernal_book.page.2'}},{raw:{translate:'skyblockmulti.infernal_book.page.3'}},{raw:{translate:'skyblockmulti.infernal_book.page.4'}},{raw:{translate:'skyblockmulti.infernal_book.page.5'}}]},minecraft:custom_data={skyblockmulti_infernal_book:1b}] 1
+tag @s add skyblock_infernal_chronicle_v1
+tellraw @s [{"text":"[Skyblock Multi] ","color":"dark_red","bold":true},{"translate":"skyblockmulti.infernal_book.received","color":"gold"}]

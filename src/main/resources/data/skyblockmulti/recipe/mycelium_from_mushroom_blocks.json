@@ -1,16 +1,17 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "building",
-  "pattern": [
-    "RBR",
-    "BDB",
-    "RBR"
+  "ingredients": [
+    "minecraft:red_mushroom_block",
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block",
+    "minecraft:brown_mushroom_block",
+    "minecraft:dirt",
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block",
+    "minecraft:brown_mushroom_block",
+    "minecraft:red_mushroom_block"
   ],
-  "key": {
-    "R": "minecraft:red_mushroom_block",
-    "B": "minecraft:brown_mushroom_block",
-    "D": "minecraft:dirt"
-  },
   "result": {
     "id": "minecraft:mycelium",
     "count": 1

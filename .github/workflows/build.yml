@@ -1,4 +1,4 @@
-name: Build SkyblockMulti
+name: Build Skyblock Multi
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '9.5.0'
+          gradle-version: '9.7.0'
 
       - name: Build
         run: gradle build --stacktrace
@@ -42,6 +42,6 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: SkyblockMulti-build
+          name: Skyblock Multi-build
           path: build/libs/*.jar
           if-no-files-found: error

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:diorite",
+    "minecraft:diorite",
+    "minecraft:diorite",
+    "minecraft:diorite",
+    "minecraft:bone_meal",
+    "minecraft:diorite",
+    "minecraft:diorite",
+    "minecraft:diorite",
+    "minecraft:diorite"
+  ],
+  "result": {
+    "id": "minecraft:calcite",
+    "count": 9
+  }
+}

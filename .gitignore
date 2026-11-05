@@ -1,9 +1,30 @@
 .gradle/
 build/
 run/
+logs/
 out/
 .idea/
 *.iml
 *.class
+__pycache__/
+*.py[cod]
 .DS_Store
 Thumbs.db
+
+# Local Codex context and handoff material
+/AGENTS.md
+/.agents/
+/.codex/
+/codex-skills/
+
+# Local environment and credentials
+/.env
+/.env.*
+*.pem
+*.key
+credentials*.json
+secrets*.json
+*.log
+hs_err_pid*.log
+
+src/main/java/cl/treecs/skyblockmulti/SkyblockMultiMod.java.before_openpac_reservations

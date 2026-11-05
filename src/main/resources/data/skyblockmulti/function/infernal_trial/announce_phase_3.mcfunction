@@ -1,0 +1,1 @@
+execute in minecraft:the_nether positioned 0 64 0 run tellraw @a[distance=..64] [{translate:"skyblockmulti.infernal_trial.phase",color:"gold"},{text:" 3: ",color:"gold"},{translate:"skyblockmulti.infernal_trial.phase.final_champion",color:"dark_red",bold:true}]

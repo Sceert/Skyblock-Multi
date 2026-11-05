@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "arena": "example:colosseum",
+  "display": {"text": "Ember Oath", "color": "gold", "bold": true},
+  "activations": [
+    {
+      "item": "minecraft:blaze_powder",
+      "custom_data": {"example": {"infernal_trial": "ember_oath"}},
+      "consume": true
+    }
+  ],
+  "countdown_seconds": 5,
+  "cooldown_seconds": 60,
+  "cleanup_mobs": true,
+  "cleanup_items": true,
+  "spawn_release_seconds": 30,
+  "phases": [
+    {
+      "id": "awakening",
+      "display": {"text": "The Galleries Awaken", "color": "yellow"},
+      "arena_setup_function": "example:infernal/stage_1",
+      "mobs": [
+        {
+          "entity": "minecraft:blaze",
+          "count": 6,
+          "floor": ["base", "floor_1", "floor_2"],
+          "placement": "round_robin",
+          "health_multiplier": 1.25,
+          "effects": [
+            {"id": "minecraft:fire_resistance", "amplifier": 0, "duration_ticks": 1200}
+          ],
+          "drop_policy": "none",
+          "player_targeting_only": true
+        }
+      ]
+    },
+    {
+      "id": "ashen_champion",
+      "display": {"text": "The Ashen Champion", "color": "dark_red", "bold": true},
+      "delay_after_previous_seconds": 5,
+      "arena_setup_function": "example:infernal/stage_2",
+      "arena_restore_function": "example:infernal/undo_stage_2",
+      "mobs": [
+        {
+          "entity": "minecraft:piglin_brute",
+          "count": 1,
+          "floor": "champion",
+          "placement": "fixed",
+          "champion": true,
+          "scale": 1.4,
+          "health_multiplier": 2.5,
+          "damage_multiplier": 1.35,
+          "knockback_resistance": 0.8,
+          "name": {"text": "Ashen Champion", "color": "dark_red", "bold": true},
+          "equipment": {
+            "mainhand": {"item": "minecraft:golden_axe", "drop_chance": 0.0}
+          },
+          "drop_policy": "trial_only",
+          "player_targeting_only": true
+        }
+      ]
+    }
+  ],
+  "scaling": {
+    "maximum_count_multiplier": 2.0,
+    "participants": {
+      "extra_mobs_per_player": 2,
+      "health_per_extra_player": 0.15,
+      "maximum_participants_counted": 8
+    },
+    "island_difficulty": {
+      "easy": {"count_multiplier": 0.75, "health_multiplier": 0.85, "damage_multiplier": 0.9},
+      "standard": {"count_multiplier": 1.0, "health_multiplier": 1.0, "damage_multiplier": 1.0},
+      "hard": {"count_multiplier": 1.2, "health_multiplier": 1.15, "damage_multiplier": 1.1},
+      "extreme": {"count_multiplier": 1.4, "health_multiplier": 1.3, "damage_multiplier": 1.2}
+    }
+  },
+  "rewards": {
+    "completion": "example:infernal_trials/ember_oath",
+    "phase_bonus": "example:infernal_trials/phase_bonus",
+    "per_participant": true
+  }
+}

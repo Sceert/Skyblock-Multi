@@ -11,6 +11,15 @@ base {
 
 repositories {
     maven {
+        name = "Shedaniel"
+        url = "https://maven.shedaniel.me/"
+    }
+    maven {
+        name = "Jared's Maven"
+        url = "https://maven.blamejared.com/"
+    }
+
+    maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
@@ -35,8 +44,27 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    implementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+        exclude group: "net.fabricmc", module: "fabric-loader"
+    }
 
-    compileOnly "maven.modrinth:gF3BGWvG:tdvSCMV3"
+    // Optional compile-time integration. JEI is not bundled or required at runtime.
+    compileOnly "mezz.jei:jei-${project.minecraft_version}-fabric-api:${project.jei_version}"
+    runtimeOnly "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
+
+    compileOnly "maven.modrinth:gF3BGWvG:KBCCg0os"
+
+    // Optional Nexus Parties API. Compile against the newest local development
+    // JAR without coupling Skyblock Multi to each alpha revision. Runtime
+    // compatibility is governed by Nexus Parties API_VERSION instead.
+    def nexusPartiesJars = fileTree("../Nexus Parties/build/libs") {
+        include "nexus-parties-*.jar"
+        exclude "*-sources.jar"
+    }.files
+    if (!nexusPartiesJars.isEmpty()) {
+        compileOnly files(nexusPartiesJars.max { it.lastModified() })
+    }
 }
 
 processResources {
@@ -49,10 +77,188 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     options.release = 25
+    options.compilerArgs += ['-Xlint:deprecation']
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_25
     targetCompatibility = JavaVersion.VERSION_25
     withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" }
+    }
+}
+
+tasks.register('verifyTreeConfig', JavaExec) {
+    group = 'verification'
+    description = 'Verifies stable tree IDs and legacy configuration migration.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.tree.TreeConfigVerification'
+}
+
+tasks.register('verifyInfernalDataApi', JavaExec) {
+    group = 'verification'
+    description = 'Verifies Infernal Trial datapack schema parsing and safety limits.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.infernal.InfernalDataApiVerification'
+}
+
+tasks.register('verifyPartyApi', JavaExec) {
+    group = 'verification'
+    description = 'Verifies party-provider priority and authoritative fallback selection.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.api.party.PartyApiVerification'
+}
+
+tasks.register('verifyIslandRingLayout', JavaExec) {
+    group = 'verification'
+    description = 'Verifies deterministic configurable island ring geometry.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.island.IslandRingLayoutVerification'
+}
+
+tasks.register('verifyLogicalRegions', JavaExec) {
+    group = 'verification'
+    description = 'Verifies built-in logical region geometry, nesting and priority.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.api.region.LogicalRegionApiVerification'
+}
+
+tasks.register('verifyIslandOwnershipTransfer', JavaExec) {
+    group = 'verification'
+    description = 'Verifies confirmed island transfers, cancellation, stale decisions and durable recovery.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.api.party.IslandOwnershipTransferVerification'
+}
+
+tasks.register('verifyVanillaRecipes', JavaExec) {
+    group = 'verification'
+    description = 'Verifies recipe switch persistence and vanilla/progression recipe isolation.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.VanillaRecipeVerification'
+    args file('src/main/resources/data/skyblockmulti/recipe').absolutePath
+    inputs.dir('src/main/resources/data/skyblockmulti/recipe')
+}
+
+tasks.register('verifyIslandPanel', JavaExec) {
+    group = 'verification'
+    description = 'Verifies current island panel decisions and stale/replayed response rejection.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.network.IslandPanelVerification'
+}
+
+tasks.register('verifyIslandDetails', JavaExec) {
+    group = 'verification'
+    description = 'Verifies island tree metadata recovery, ring numbers and progression score policy.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.island.IslandDetailsVerification'
+}
+
+// These standalone checks have no natural output. Marker files allow Gradle to
+// reuse successful results until their compiled classes or classpath change.
+[
+        verifyTreeConfig,
+        verifyIslandPanel,
+        verifyIslandDetails,
+        verifyVanillaRecipes,
+        verifyInfernalDataApi,
+        verifyPartyApi,
+        verifyIslandRingLayout,
+        verifyLogicalRegions,
+        verifyIslandOwnershipTransfer
+].each { provider ->
+    provider.configure {
+        def marker = layout.buildDirectory.file("verification/${name}.passed")
+        outputs.file(marker)
+        doLast {
+            def markerFile = marker.get().asFile
+            markerFile.parentFile.mkdirs()
+            markerFile.text = "passed\n"
+        }
+    }
+}
+
+// Las verificaciones actuales son ejecutables Java sin dependencia de JUnit.
+test.failOnNoDiscoveredTests = false
+check.dependsOn verifyTreeConfig
+check.dependsOn verifyIslandPanel
+check.dependsOn verifyIslandDetails
+check.dependsOn verifyVanillaRecipes
+check.dependsOn verifyInfernalDataApi
+check.dependsOn verifyPartyApi
+check.dependsOn verifyIslandRingLayout
+check.dependsOn verifyIslandOwnershipTransfer
+check.dependsOn verifyLogicalRegions
+
+tasks.register('verifyPanelLifecycle', JavaExec) {
+    group = 'verification'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'cl.treecs.skyblockmulti.client.PanelLifecycleVerification'
+    def marker = layout.buildDirectory.file('verification/verifyPanelLifecycle.passed')
+    outputs.file(marker)
+    doLast { marker.get().asFile.with { parentFile.mkdirs(); text = 'passed\n' } }
+}
+check.dependsOn verifyPanelLifecycle
+
+// Explicit opt-in: isolated generated client-test directory, never a personal profile.
+if (providers.gradleProperty('panels_game_test').isPresent()) {
+    def mode = providers.gradleProperty('panels_game_test').get()
+    fabricApi {
+        configureTests {
+            createSourceSet = true
+            modId = 'skyblockmulti_panel_tests'
+            enableGameTests = false
+            enableClientGameTests = true
+            clearRunDirectory = false
+        }
+    }
+    if (mode == 'audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.audit', 'true' }
+    }
+    if (mode == 'core-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.coreAudit', 'true' }
+    }
+    if (mode == 'trials-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.trialsAudit', 'true' }
+    }
+    if (mode == 'dedicated-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.dedicatedAudit', 'true' }
+    }
+    if (mode == 'protection-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.protectionAudit', 'true' }
+    }
+    if (mode == 'vault-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.vaultAudit', 'true' }
+    }
+    if (mode == 'trees-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.treesAudit', 'true' }
+    }
+    if (mode == 'native-panel-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.nativePanelAudit', 'true' }
+    }
+    if (mode == 'dynamic-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.dynamicAudit', 'true' }
+    }
+    if (mode == 'dynamic-contract-audit') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.dynamicContractAudit', 'true' }
+    }
+    if (mode == 'v055-regression') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.v055Regression', 'true' }
+    }
+    if (mode == 'v056-regression') {
+        tasks.named('runClientGameTest') { systemProperty 'skyblockmulti.v056Regression', 'true' }
+    }
 }

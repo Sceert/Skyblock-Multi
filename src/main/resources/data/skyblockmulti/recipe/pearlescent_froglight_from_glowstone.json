@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:pink_dye",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone",
+    "minecraft:glowstone"
+  ],
+  "result": {
+    "id": "minecraft:pearlescent_froglight",
+    "count": 9
+  }
+}

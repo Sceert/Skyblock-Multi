@@ -1,0 +1,59 @@
+// Audit-only switches. No changes to the production mod or personal profiles.
+allprojects {
+    afterEvaluate {
+        if (tasks.findByName('runClientGameTest') != null) {
+            tasks.named('runClientGameTest') {
+                systemProperty 'skyblockmulti.boundaryAudit', 'true'
+            }
+        }
+        if (tasks.findByName('runServer') != null) {
+            def auditPath = 'build/audit-independent-' + java.util.UUID.randomUUID().toString()
+            def auditDir = file(auditPath)
+            loom.runs.named('server') { runDir auditPath }
+            tasks.named('runServer', JavaExec) {
+                workingDir = auditDir
+                args 'nogui'
+                doFirst {
+                    if (new File(auditDir, 'world').exists() || new File(auditDir, 'eula.txt').exists()
+                            || new File(auditDir, 'server.properties').exists()) {
+                        throw new GradleException('Audit state already exists; choose a fresh target before rerunning')
+                    }
+                    auditDir.mkdirs()
+                    // Existing user acceptance for disposable test servers is recorded in v054.
+                    new File(auditDir, 'eula.txt').text = 'eula=true\n'
+                    new File(auditDir, 'server.properties').text = 'server-ip=127.0.0.1\nserver-port=0\nonline-mode=false\nlevel-type=skyblockmulti:skyblockmulti\nview-distance=2\nsimulation-distance=2\n'
+                    copy {
+                        from file('docs/datapacks/examples/infernal-api-v1')
+                        into new File(auditDir, 'world/datapacks/infernal-api-v1')
+                    }
+                    def commands = new PipedOutputStream()
+                    standardInput = new PipedInputStream(commands)
+                    def awaitingReload = false
+                    def finished = false
+                    def line = new ByteArrayOutputStream()
+                    standardOutput = new OutputStream() {
+                        @Override synchronized void write(int value) {
+                            System.out.write(value)
+                            if (value != 10) { line.write(value); return }
+                            def message = line.toString('UTF-8')
+                            line.reset()
+                            if (!awaitingReload && message.contains('Done (')) {
+                                awaitingReload = true
+                                commands.write('reload\n'.getBytes('UTF-8'))
+                                commands.flush()
+                            } else if (awaitingReload && !finished
+                                    && message.contains('API infernal: 1 arenas y 1 pruebas validadas.')) {
+                                finished = true
+                                commands.write(('execute in minecraft:overworld run say [INDEPENDENT-AUDIT] Overworld available\n'
+                                    + 'execute in minecraft:the_nether run say [INDEPENDENT-AUDIT] Nether available\n'
+                                    + 'execute in minecraft:the_end run say [INDEPENDENT-AUDIT] End available\n'
+                                    + 'stop\n').getBytes('UTF-8'))
+                                commands.flush()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "CRC",
+    "RHR",
+    "CRC"
+  ],
+  "key": {
+    "C": "minecraft:cobblestone",
+    "R": "minecraft:rotten_flesh",
+    "H": "minecraft:charcoal"
+  },
+  "result": {
+    "id": "skyblockmulti:lava_catalyst",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": {"translate": "skyblockmulti.lava_catalyst", "color": "gold", "italic": false},
+      "minecraft:max_stack_size": 1
+    }
+  }
+}

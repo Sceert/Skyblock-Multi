@@ -1,0 +1,33 @@
+# Search active slots in configured ring 2.
+execute store result score #random_slot sb3_const run random value 9..24
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..9 if data storage skyblockmulti:slots s09.x if score #09 sb3_used matches 0 run function skyblockmulti:slots/claim/09
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..10 if data storage skyblockmulti:slots s10.x if score #10 sb3_used matches 0 run function skyblockmulti:slots/claim/10
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..11 if data storage skyblockmulti:slots s11.x if score #11 sb3_used matches 0 run function skyblockmulti:slots/claim/11
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..12 if data storage skyblockmulti:slots s12.x if score #12 sb3_used matches 0 run function skyblockmulti:slots/claim/12
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..13 if data storage skyblockmulti:slots s13.x if score #13 sb3_used matches 0 run function skyblockmulti:slots/claim/13
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..14 if data storage skyblockmulti:slots s14.x if score #14 sb3_used matches 0 run function skyblockmulti:slots/claim/14
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..15 if data storage skyblockmulti:slots s15.x if score #15 sb3_used matches 0 run function skyblockmulti:slots/claim/15
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..16 if data storage skyblockmulti:slots s16.x if score #16 sb3_used matches 0 run function skyblockmulti:slots/claim/16
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..17 if data storage skyblockmulti:slots s17.x if score #17 sb3_used matches 0 run function skyblockmulti:slots/claim/17
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..18 if data storage skyblockmulti:slots s18.x if score #18 sb3_used matches 0 run function skyblockmulti:slots/claim/18
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..19 if data storage skyblockmulti:slots s19.x if score #19 sb3_used matches 0 run function skyblockmulti:slots/claim/19
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..20 if data storage skyblockmulti:slots s20.x if score #20 sb3_used matches 0 run function skyblockmulti:slots/claim/20
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..21 if data storage skyblockmulti:slots s21.x if score #21 sb3_used matches 0 run function skyblockmulti:slots/claim/21
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..22 if data storage skyblockmulti:slots s22.x if score #22 sb3_used matches 0 run function skyblockmulti:slots/claim/22
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..23 if data storage skyblockmulti:slots s23.x if score #23 sb3_used matches 0 run function skyblockmulti:slots/claim/23
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches ..24 if data storage skyblockmulti:slots s24.x if score #24 sb3_used matches 0 run function skyblockmulti:slots/claim/24
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 10.. if data storage skyblockmulti:slots s09.x if score #09 sb3_used matches 0 run function skyblockmulti:slots/claim/09
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 11.. if data storage skyblockmulti:slots s10.x if score #10 sb3_used matches 0 run function skyblockmulti:slots/claim/10
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 12.. if data storage skyblockmulti:slots s11.x if score #11 sb3_used matches 0 run function skyblockmulti:slots/claim/11
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 13.. if data storage skyblockmulti:slots s12.x if score #12 sb3_used matches 0 run function skyblockmulti:slots/claim/12
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 14.. if data storage skyblockmulti:slots s13.x if score #13 sb3_used matches 0 run function skyblockmulti:slots/claim/13
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 15.. if data storage skyblockmulti:slots s14.x if score #14 sb3_used matches 0 run function skyblockmulti:slots/claim/14
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 16.. if data storage skyblockmulti:slots s15.x if score #15 sb3_used matches 0 run function skyblockmulti:slots/claim/15
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 17.. if data storage skyblockmulti:slots s16.x if score #16 sb3_used matches 0 run function skyblockmulti:slots/claim/16
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 18.. if data storage skyblockmulti:slots s17.x if score #17 sb3_used matches 0 run function skyblockmulti:slots/claim/17
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 19.. if data storage skyblockmulti:slots s18.x if score #18 sb3_used matches 0 run function skyblockmulti:slots/claim/18
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 20.. if data storage skyblockmulti:slots s19.x if score #19 sb3_used matches 0 run function skyblockmulti:slots/claim/19
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 21.. if data storage skyblockmulti:slots s20.x if score #20 sb3_used matches 0 run function skyblockmulti:slots/claim/20
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 22.. if data storage skyblockmulti:slots s21.x if score #21 sb3_used matches 0 run function skyblockmulti:slots/claim/21
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 23.. if data storage skyblockmulti:slots s22.x if score #22 sb3_used matches 0 run function skyblockmulti:slots/claim/22
+execute if score #claim sb3_const matches 0 if score #random_slot sb3_const matches 24.. if data storage skyblockmulti:slots s23.x if score #23 sb3_used matches 0 run function skyblockmulti:slots/claim/23
