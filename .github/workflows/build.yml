@@ -23,6 +23,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          path: SkyblockMulti
+
+      - name: Checkout Nexus Parties
+        uses: actions/checkout@v4
+        with:
+          repository: Sceert/Nexus-Parties
+          ref: b47d3a50bf680593a6f6aa982d0694688bac4f05
+          path: Nexus Parties
+          persist-credentials: false
 
       - name: Set up Java 25
         uses: actions/setup-java@v5
@@ -35,7 +45,12 @@ jobs:
         with:
           gradle-version: '9.7.0'
 
-      - name: Build
+      - name: Build Nexus Parties compile dependency
+        working-directory: Nexus Parties
+        run: gradle jar --stacktrace
+
+      - name: Build Skyblock Multi
+        working-directory: SkyblockMulti
         run: gradle build --stacktrace
 
       - name: Upload build artifacts
@@ -43,5 +58,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Skyblock Multi-build
-          path: build/libs/*.jar
+          path: SkyblockMulti/build/libs/*.jar
           if-no-files-found: error
